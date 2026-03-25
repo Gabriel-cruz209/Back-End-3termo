@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\ItemPedido;
+use App\Models\Pedido;
+use App\Observers\ItemPedidoObserver;
+use App\Observers\PedidoObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Pedido::observe(PedidoObserver::class);
+        ItemPedido::observe(ItemPedidoObserver::class);
     }
 }
