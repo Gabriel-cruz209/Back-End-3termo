@@ -21,6 +21,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Actions\ViewAction;
 use Filament\Actions\EditAction;
+use UnitEnum;
+
 
 class FornecedorResource extends Resource
 {
@@ -28,11 +30,15 @@ class FornecedorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|UnitEnum|null $navigationGroup = "Cadastros";
+
+    protected static ?string $navigationLabel = 'Fornecedores';
+
+
+    protected static ? string $modelLabel = 'Criar Fornecedor';
+
+    protected static ? string $pluralModelLabel = 'Fornecedores';
     protected static ?string $navigationlabel = "Fornecedor";
-
-    protected static ?string $modelLabel = "Fornecedor";
-
-    protected static ?string $pluralModelLabel = "Fornecedores";
 
     protected static ?string $recordTitleAttribute = 'Fornecedores';
 

@@ -22,6 +22,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Actions\ViewAction;
 use Filament\Actions\EditAction;
+use UnitEnum;
 
 class InsumoResource extends Resource
 {
@@ -29,6 +30,16 @@ class InsumoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|UnitEnum|null $navigationGroup = "Estoque";
+    protected static ?int $navigationSort = 2;
+
+
+    protected static ?string $navigationLabel = 'Insumos';
+
+
+    protected static ? string $modelLabel = 'Criar Insumo';
+
+    protected static ? string $pluralModelLabel = 'Insumos';
     protected static ?string $recordTitleAttribute = 'Insumos';
 
     public static function form(Schema $schema): Schema

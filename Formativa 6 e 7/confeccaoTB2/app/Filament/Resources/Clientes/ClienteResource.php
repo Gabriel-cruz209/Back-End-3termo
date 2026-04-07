@@ -19,6 +19,7 @@ use Filament\Schemas\Schema;
 // use Filament\Support\Assets\Js;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ClienteResource extends Resource
 {
@@ -26,6 +27,14 @@ class ClienteResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|UnitEnum|null $navigationGroup = "Cadastros";
+
+    protected static ?string $navigationLabel = 'Clientes';
+
+
+    protected static ? string $modelLabel = 'Criar Clientes';
+
+    protected static ? string $pluralModelLabel = 'Clientes';
     protected static ?string $recordTitleAttribute = 'CLientes';
 
     public static function form(Schema $schema): Schema

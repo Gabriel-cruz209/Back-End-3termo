@@ -21,6 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use UnitEnum;
 
 class PedidoResource extends Resource
 {
@@ -28,6 +29,14 @@ class PedidoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|UnitEnum|null $navigationGroup = "Vendas";
+
+    protected static ?string $navigationLabel = 'Pedidos';
+
+
+    protected static ? string $modelLabel = 'Criar Pedido';
+
+    protected static ? string $pluralModelLabel = 'Pedidos';
     protected static ?string $recordTitleAttribute = 'pedidos';
 
     public static function form(Schema $schema): Schema

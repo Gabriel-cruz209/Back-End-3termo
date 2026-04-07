@@ -18,6 +18,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class EstoqueResource extends Resource
 {
@@ -25,6 +26,8 @@ class EstoqueResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArchiveBox;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Estoque';
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Estoque';
 
     protected static ?string $modelLabel = 'Movimentação de Estoque';

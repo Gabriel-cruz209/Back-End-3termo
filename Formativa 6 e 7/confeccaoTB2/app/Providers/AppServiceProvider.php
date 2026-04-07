@@ -7,6 +7,7 @@ use App\Models\Pedido;
 use App\Observers\ItemPedidoObserver;
 use App\Observers\PedidoObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Pedido::observe(PedidoObserver::class);
         ItemPedido::observe(ItemPedidoObserver::class);
+        Gate::before(function ($user, $ability){
+            return $user->hasRole('Admin') ? true : null; 
+        });
     }
 }
