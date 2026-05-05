@@ -7,6 +7,7 @@ use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Usuario;
 
+Route::view('/', 'pokemon');
 Route::get('usuarios', [UsuarioController::class, 'index']);
 Route::get('usuario/{id}', function ($id){
     $response = Http::get("https://dummyjson.com/user/{$id}");
@@ -47,6 +48,7 @@ Route::post('usuario/novo', function (Request $request) {
 
 Route::get('api/pokemon', [PokemonController::class, 'search']);
 Route::get('pokedex', [PokemonController::class, 'index']);
+Route::post('pokemon/cadastrar', [PokemonController::class, 'store']);
 
 Route::get('pokemon/{nome}', function ($nome) {
     $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$nome}");

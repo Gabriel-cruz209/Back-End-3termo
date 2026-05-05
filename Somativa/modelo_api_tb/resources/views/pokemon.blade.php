@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pokedex Premium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -171,6 +172,7 @@
             <p class="text-sm font-semibold text-white">Buscando Pokémon...</p>
         </div>
     </div>
+    <div id="toastMessage" class="fixed right-4 top-4 z-[60] hidden rounded-2xl px-5 py-3 text-sm font-semibold text-white shadow-lg"></div>
 
     <div class="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div class="glass-card shadow-soft rounded-[32px] border border-white/30 p-8">
@@ -213,6 +215,14 @@
                                     </div>
                                     <h2 id="pokemonName" class="text-5xl font-semibold tracking-tight text-slate-950"></h2>
                                     <p id="pokemonDescription" class="text-sm leading-7 text-slate-600">Carregue um Pokémon para ver detalhes, evolução e variantes.</p>
+                                </div>
+
+                                <div class="mt-6">
+                                    <button id="registerPokemonButton" type="button"
+                                            class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700">
+                                        &#10010; Cadastrar Pok&eacute;mon
+                                    </button>
+                                    <p id="registerFeedback" class="mt-3 hidden text-sm font-semibold"></p>
                                 </div>
 
                                 <div class="mt-8 grid gap-4 sm:grid-cols-2">
@@ -268,6 +278,162 @@
         </div>
     </div>
 
+    <div id="pokemonRegisterModal" class="fixed inset-0 z-[70] hidden overflow-y-auto bg-slate-950/70 px-4 py-8">
+        <div class="mx-auto w-full max-w-4xl rounded-[28px] bg-white p-6 shadow-2xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.2em] text-indigo-500">Novo registro</p>
+                    <h2 class="mt-2 text-2xl font-semibold text-slate-950">Cadastrar Pok&eacute;mon</h2>
+                </div>
+                <button id="closePokemonModalButton" type="button"
+                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-xl font-semibold text-slate-600 transition hover:bg-slate-200"
+                        aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+
+            <form id="pokemonRegisterForm" class="mt-6 space-y-6" enctype="multipart/form-data">
+                <div class="grid gap-4 md:grid-cols-3">
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">ID</span>
+                        <input name="pokemon_id" type="number" min="1" required
+                               class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2 md:col-span-2">
+                        <span class="text-sm font-semibold text-slate-700">Nome</span>
+                        <input name="nome" type="text" required
+                               class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Apelido</span>
+                        <input name="apelido" type="text"
+                               class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Tipo prim&aacute;rio</span>
+                        <select name="tipo_primario" required
+                                class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                            <option value="">Selecione</option>
+                            <option value="normal">Normal</option>
+                            <option value="fire">Fire</option>
+                            <option value="water">Water</option>
+                            <option value="grass">Grass</option>
+                            <option value="electric">Electric</option>
+                            <option value="ice">Ice</option>
+                            <option value="fighting">Fighting</option>
+                            <option value="poison">Poison</option>
+                            <option value="ground">Ground</option>
+                            <option value="flying">Flying</option>
+                            <option value="psychic">Psychic</option>
+                            <option value="bug">Bug</option>
+                            <option value="rock">Rock</option>
+                            <option value="ghost">Ghost</option>
+                            <option value="dragon">Dragon</option>
+                            <option value="dark">Dark</option>
+                            <option value="steel">Steel</option>
+                            <option value="fairy">Fairy</option>
+                        </select>
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Tipo secund&aacute;rio</span>
+                        <select name="tipo_secundario"
+                                class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                            <option value="">Nenhum</option>
+                            <option value="normal">Normal</option>
+                            <option value="fire">Fire</option>
+                            <option value="water">Water</option>
+                            <option value="grass">Grass</option>
+                            <option value="electric">Electric</option>
+                            <option value="ice">Ice</option>
+                            <option value="fighting">Fighting</option>
+                            <option value="poison">Poison</option>
+                            <option value="ground">Ground</option>
+                            <option value="flying">Flying</option>
+                            <option value="psychic">Psychic</option>
+                            <option value="bug">Bug</option>
+                            <option value="rock">Rock</option>
+                            <option value="ghost">Ghost</option>
+                            <option value="dragon">Dragon</option>
+                            <option value="dark">Dark</option>
+                            <option value="steel">Steel</option>
+                            <option value="fairy">Fairy</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">HP</span>
+                        <input name="hp" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Ataque</span>
+                        <input name="ataque" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Defesa</span>
+                        <input name="defesa" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Sp. Ataque</span>
+                        <input name="sp_ataque" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Sp. Defesa</span>
+                        <input name="sp_defesa" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Velocidade</span>
+                        <input name="velocidade" type="number" min="0" required class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                </div>
+
+                <div class="grid gap-4 md:grid-cols-2">
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Altura</span>
+                        <input name="altura" type="number" min="0" required
+                               class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Peso</span>
+                        <input name="peso" type="number" min="0" required
+                               class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <label class="space-y-2 md:col-span-2">
+                        <span class="text-sm font-semibold text-slate-700">Descri&ccedil;&atilde;o</span>
+                        <textarea name="flavor_text" rows="3"
+                                  class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"></textarea>
+                    </label>
+                </div>
+
+                <div class="grid gap-4 md:grid-cols-[1fr_160px] md:items-end">
+                    <label class="space-y-2">
+                        <span class="text-sm font-semibold text-slate-700">Imagem</span>
+                        <input id="pokemonImageInput" name="imagem" type="file" accept="image/png,image/jpeg,image/webp"
+                               class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 file:mr-4 file:rounded-full file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-indigo-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                    </label>
+                    <div class="flex h-36 items-center justify-center rounded-2xl bg-slate-100">
+                        <img id="pokemonImagePreview" src="" alt="Preview da imagem" class="hidden h-32 w-32 object-contain">
+                        <span id="pokemonImagePlaceholder" class="text-sm font-semibold text-slate-400">Preview</span>
+                    </div>
+                </div>
+
+                <p id="pokemonRegisterError" class="hidden rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600"></p>
+
+                <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                    <button id="cancelPokemonRegisterButton" type="button"
+                            class="inline-flex items-center justify-center rounded-full bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">
+                        Cancelar
+                    </button>
+                    <button id="submitPokemonRegisterButton" type="submit"
+                            class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-wait disabled:bg-indigo-300">
+                        Salvar Pok&eacute;mon
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         const initialPokemon = @json($pokemon ?? null);
         const typeGradients = {
@@ -311,6 +477,21 @@
         const statsContainer = document.getElementById('statsContainer');
         const evolutionContainer = document.getElementById('evolutionContainer');
         const variantContainer = document.getElementById('variantContainer');
+        const registerPokemonButton = document.getElementById('registerPokemonButton');
+        const registerFeedback = document.getElementById('registerFeedback');
+        const toastMessage = document.getElementById('toastMessage');
+        const pokemonRegisterModal = document.getElementById('pokemonRegisterModal');
+        const pokemonRegisterForm = document.getElementById('pokemonRegisterForm');
+        const closePokemonModalButton = document.getElementById('closePokemonModalButton');
+        const cancelPokemonRegisterButton = document.getElementById('cancelPokemonRegisterButton');
+        const submitPokemonRegisterButton = document.getElementById('submitPokemonRegisterButton');
+        const pokemonRegisterError = document.getElementById('pokemonRegisterError');
+        const pokemonImageInput = document.getElementById('pokemonImageInput');
+        const pokemonImagePreview = document.getElementById('pokemonImagePreview');
+        const pokemonImagePlaceholder = document.getElementById('pokemonImagePlaceholder');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let currentPokemon = null;
+        let toastTimeout = null;
 
         function toggleLoading(active) {
             loadingOverlay.classList.toggle('active', active);
@@ -324,6 +505,33 @@
         function clearError() {
             errorMessage.textContent = '';
             errorMessage.classList.remove('active');
+        }
+
+        function setRegisterButtonState(isLoading = false) {
+            registerPokemonButton.disabled = isLoading;
+            registerPokemonButton.textContent = isLoading ? 'Salvando...' : '\u271A Cadastrar Pok\u00E9mon';
+            registerPokemonButton.className = 'inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-wait disabled:bg-indigo-300';
+        }
+
+        function setRegisterFeedback(message = '', type = 'success') {
+            if (!message) {
+                registerFeedback.textContent = '';
+                registerFeedback.classList.add('hidden');
+                return;
+            }
+
+            registerFeedback.textContent = message;
+            registerFeedback.classList.remove('hidden', 'text-emerald-700', 'text-red-600');
+            registerFeedback.classList.add(type === 'success' ? 'text-emerald-700' : 'text-red-600');
+        }
+
+        function showToast(message, type = 'success') {
+            clearTimeout(toastTimeout);
+            toastMessage.textContent = message;
+            toastMessage.className = `fixed right-4 top-4 z-[60] rounded-2xl px-5 py-3 text-sm font-semibold text-white shadow-lg ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'}`;
+            toastTimeout = setTimeout(() => {
+                toastMessage.classList.add('hidden');
+            }, 3500);
         }
 
         function getGradient(type) {
@@ -420,6 +628,9 @@
 
         function setPokemonData(pokemon) {
             clearError();
+            currentPokemon = pokemon;
+            setRegisterFeedback();
+            setRegisterButtonState();
             appBody.style.background = getGradient(pokemon.primary_type);
             pokemonName.textContent = pokemon.name;
             pokemonId.textContent = `#${pokemon.id}`;
@@ -455,6 +666,77 @@
             }
         }
 
+        function openRegisterModal() {
+            pokemonRegisterError.classList.add('hidden');
+            pokemonRegisterError.textContent = '';
+            pokemonRegisterModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeRegisterModal() {
+            pokemonRegisterModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function resetRegisterForm() {
+            pokemonRegisterForm.reset();
+            pokemonImagePreview.src = '';
+            pokemonImagePreview.classList.add('hidden');
+            pokemonImagePlaceholder.classList.remove('hidden');
+        }
+
+        function getFormErrorMessage(data) {
+            if (data.message) {
+                return data.message;
+            }
+
+            if (data.errors) {
+                const firstError = Object.values(data.errors)[0];
+                if (Array.isArray(firstError) && firstError.length) {
+                    return firstError[0];
+                }
+            }
+
+            return 'Erro ao salvar. Verifique os dados e tente novamente.';
+        }
+
+        async function submitPokemonRegister(event) {
+            event.preventDefault();
+
+            pokemonRegisterError.classList.add('hidden');
+            pokemonRegisterError.textContent = '';
+            submitPokemonRegisterButton.disabled = true;
+            submitPokemonRegisterButton.textContent = 'Salvando...';
+
+            try {
+                const response = await fetch('/pokemon/cadastrar', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: new FormData(pokemonRegisterForm),
+                });
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok || !data.success) {
+                    throw new Error(getFormErrorMessage(data));
+                }
+
+                resetRegisterForm();
+                closeRegisterModal();
+                setRegisterFeedback(data.message || 'Pok\u00E9mon cadastrado com sucesso!', 'success');
+                showToast(data.message || 'Pok\u00E9mon cadastrado com sucesso!', 'success');
+            } catch (error) {
+                pokemonRegisterError.textContent = error.message || 'Erro ao salvar. Verifique os dados e tente novamente.';
+                pokemonRegisterError.classList.remove('hidden');
+                showToast(error.message || 'Erro ao salvar. Verifique os dados e tente novamente.', 'error');
+            } finally {
+                submitPokemonRegisterButton.disabled = false;
+                submitPokemonRegisterButton.textContent = 'Salvar Pok\u00E9mon';
+            }
+        }
+
         function debounce(fn, delay) {
             let timeout;
             return (...args) => {
@@ -482,6 +764,30 @@
         searchButton.addEventListener('click', () => {
             const query = searchInput.value.trim();
             fetchPokemon(query);
+        });
+
+        registerPokemonButton.addEventListener('click', openRegisterModal);
+        closePokemonModalButton.addEventListener('click', closeRegisterModal);
+        cancelPokemonRegisterButton.addEventListener('click', closeRegisterModal);
+        pokemonRegisterForm.addEventListener('submit', submitPokemonRegister);
+        pokemonRegisterModal.addEventListener('click', (event) => {
+            if (event.target === pokemonRegisterModal) {
+                closeRegisterModal();
+            }
+        });
+        pokemonImageInput.addEventListener('change', () => {
+            const [file] = pokemonImageInput.files;
+
+            if (!file) {
+                pokemonImagePreview.src = '';
+                pokemonImagePreview.classList.add('hidden');
+                pokemonImagePlaceholder.classList.remove('hidden');
+                return;
+            }
+
+            pokemonImagePreview.src = URL.createObjectURL(file);
+            pokemonImagePreview.classList.remove('hidden');
+            pokemonImagePlaceholder.classList.add('hidden');
         });
 
         document.addEventListener('DOMContentLoaded', () => {
