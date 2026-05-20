@@ -1,0 +1,356 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+:root {
+    --safe-navy: #001b3d;
+    --safe-navy-2: #002952;
+    --safe-blue: #0057ff;
+    --safe-blue-2: #1d74ff;
+    --safe-cyan: #18c7d4;
+    --safe-ink: #071a3b;
+    --safe-muted: #64748b;
+    --safe-border: #dce5f1;
+    --safe-soft: #f6f9fd;
+    --safe-card-shadow: 0 16px 34px rgba(7, 26, 59, 0.08);
+}
+
+.fi-body {
+    background:
+        radial-gradient(circle at 36% 4%, rgba(0, 87, 255, 0.06), transparent 30rem),
+        linear-gradient(180deg, #fbfdff 0%, #f6f9fd 100%);
+    color: var(--safe-ink);
+}
+
+.fi-main {
+    padding-block: 1.55rem;
+}
+
+.fi-main-ctn,
+.fi-topbar {
+    background: transparent;
+}
+
+.fi-topbar {
+    min-height: 4.5rem;
+    border-bottom: 1px solid var(--safe-border);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 22px rgba(7, 26, 59, 0.04);
+}
+
+.fi-sidebar {
+    border-inline-end: 0 !important;
+    background:
+        radial-gradient(circle at 20% 6%, rgba(56, 189, 248, 0.16), transparent 13rem),
+        linear-gradient(180deg, var(--safe-navy-2) 0%, #001832 45%, #001225 100%) !important;
+    box-shadow: inset -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.fi-sidebar-header {
+    min-height: 5.2rem;
+    border-bottom: 0 !important;
+    background: transparent !important;
+    padding-inline: 1.5rem !important;
+}
+
+.fi-sidebar-header img {
+    width: auto;
+}
+
+.fi-sidebar-nav {
+    padding-inline: 1rem !important;
+}
+
+.fi-sidebar-group {
+    gap: 0.35rem;
+}
+
+.fi-sidebar-group-label {
+    color: #a8b9d1 !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: uppercase;
+}
+
+.fi-sidebar-item a {
+    min-height: 2.9rem;
+    border-radius: 8px !important;
+    color: #d7e5f8 !important;
+    transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.fi-sidebar-item a:hover,
+.fi-sidebar-item.fi-active a,
+.fi-sidebar-item-active {
+    background: linear-gradient(135deg, var(--safe-blue) 0%, var(--safe-blue-2) 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 24px rgba(0, 87, 255, 0.28);
+}
+
+.fi-sidebar-item-icon,
+.fi-sidebar-item-label {
+    color: currentColor !important;
+}
+
+.fi-sidebar-item-label {
+    font-weight: 600;
+}
+
+.fi-page-header-heading,
+.fi-header-heading,
+.fi-ta-header-heading,
+.fi-section-header-heading {
+    color: var(--safe-ink);
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.fi-page-header-subheading,
+.fi-header-subheading,
+.fi-ta-header-description,
+.fi-section-header-description {
+    color: var(--safe-muted);
+}
+
+.fi-section,
+.fi-ta-ctn,
+.fi-wi-stats-overview-stat {
+    border: 1px solid var(--safe-border) !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: var(--safe-card-shadow) !important;
+}
+
+.fi-section-header,
+.fi-ta-header,
+.fi-ta-header-toolbar {
+    border-color: var(--safe-border) !important;
+}
+
+.fi-section-content,
+.fi-ta-main {
+    border-radius: 8px;
+}
+
+.fi-wi-stats-overview {
+    gap: 1rem;
+}
+
+.fi-wi-stats-overview-stat {
+    position: relative;
+    min-height: 8rem;
+    overflow: hidden;
+    padding: 1.4rem !important;
+}
+
+.fi-wi-stats-overview-stat::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 1.4rem;
+    inset-inline-end: 1.35rem;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(0, 87, 255, 0.12), rgba(24, 199, 212, 0.18));
+}
+
+.fi-wi-stats-overview-stat-label-ctn > svg,
+.fi-wi-stats-overview-stat-label-ctn .fi-icon {
+    position: absolute;
+    inset-block-start: 2.35rem;
+    inset-inline-end: 2.25rem;
+    z-index: 1;
+    width: 1.9rem !important;
+    height: 1.9rem !important;
+    color: var(--safe-blue) !important;
+}
+
+.fi-wi-stats-overview-stat-label {
+    color: #465873 !important;
+    font-weight: 700;
+}
+
+.fi-wi-stats-overview-stat-value {
+    color: #06142f !important;
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+}
+
+.fi-wi-stats-overview-stat-description {
+    color: #667a96 !important;
+    font-weight: 600;
+}
+
+.fi-input-wrp,
+.fi-select-input,
+.fi-textarea,
+.fi-input {
+    border-color: #cfd9e6 !important;
+    border-radius: 8px !important;
+}
+
+.fi-input-wrp:focus-within {
+    border-color: var(--safe-blue) !important;
+    box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.12) !important;
+}
+
+.fi-btn {
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+}
+
+.fi-btn-color-primary {
+    background: linear-gradient(135deg, var(--safe-blue) 0%, #006dff 100%) !important;
+    box-shadow: 0 12px 24px rgba(0, 87, 255, 0.22) !important;
+}
+
+.fi-badge {
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+}
+
+.fi-ta-table thead {
+    background: #f8fbff;
+}
+
+.fi-ta-header-cell,
+.fi-ta-cell {
+    border-color: #e5edf7 !important;
+}
+
+.fi-ta-header-cell-label {
+    color: #506078 !important;
+    font-weight: 800 !important;
+}
+
+.fi-ta-row:hover {
+    background: #f8fbff !important;
+}
+
+.fi-pagination-item,
+.fi-pagination-overview {
+    border-radius: 8px !important;
+}
+
+.fi-fo-toggle-buttons.fi-btn-group {
+    border-radius: 8px !important;
+}
+
+.safe-auth-card .fi-sc.fi-sc-has-gap {
+    gap: 1.35rem 1.5rem !important;
+}
+
+.safe-auth-card .fi-fo-field {
+    gap: 0.58rem;
+}
+
+.safe-auth-card .fi-fo-field-label {
+    color: var(--safe-ink);
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.safe-auth-card .fi-input-wrp,
+.safe-auth-card .fi-fo-select-wrp {
+    min-height: 3.35rem;
+    background: #ffffff;
+    box-shadow: 0 7px 18px rgba(7, 26, 59, 0.05);
+}
+
+.safe-auth-card .fi-input,
+.safe-auth-card .fi-select-input {
+    min-height: 3.25rem;
+    font-size: 0.98rem;
+}
+
+.safe-auth-card .fi-checkbox-input {
+    width: 1.12rem;
+    height: 1.12rem;
+}
+
+.safe-auth-card .fi-link {
+    font-weight: 800;
+    color: var(--safe-blue) !important;
+}
+
+.fi-modal-window:has(.safe-authorization-section) {
+    width: min(94vw, 68rem) !important;
+    max-width: min(94vw, 68rem) !important;
+}
+
+.safe-authorization-section .fi-section-header {
+    padding: 1.35rem clamp(1.35rem, 2vw, 2rem) !important;
+}
+
+.safe-authorization-section .fi-section-content {
+    padding: clamp(1.45rem, 2.4vw, 2.25rem) !important;
+}
+
+.safe-authorization-section .fi-sc.fi-sc-has-gap,
+.safe-authorization-section .grid-layout {
+    gap: 1.45rem 1.75rem !important;
+}
+
+.safe-authorization-section [data-field-wrapper] {
+    min-width: 0;
+}
+
+.safe-authorization-section .fi-fo-field {
+    gap: 0.65rem;
+}
+
+.safe-authorization-section .fi-fo-field-label {
+    color: var(--safe-ink);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.safe-authorization-section .fi-input-wrp,
+.safe-authorization-section .fi-fo-select-wrp,
+.safe-authorization-section .fi-fo-toggle-buttons.fi-btn-group {
+    min-height: 3.12rem;
+}
+
+.safe-authorization-section .fi-input,
+.safe-authorization-section .fi-select-input {
+    min-height: 3rem;
+}
+
+.safe-authorization-section .fi-fo-toggle-buttons.fi-btn-group .fi-btn {
+    min-height: 3rem;
+    padding-inline: 1rem !important;
+}
+
+.safe-authorization-section .fi-fo-textarea,
+.safe-authorization-section textarea {
+    min-height: 9.25rem;
+}
+
+@media (max-width: 1023px) {
+    .fi-main {
+        padding-block: 1rem;
+    }
+
+    .fi-topbar {
+        min-height: 4rem;
+    }
+
+    .safe-auth-card .fi-sc.fi-sc-has-gap,
+    .safe-authorization-section .fi-sc.fi-sc-has-gap,
+    .safe-authorization-section .grid-layout {
+        gap: 1.15rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .safe-auth-card .fi-input-wrp,
+    .safe-auth-card .fi-fo-select-wrp,
+    .safe-authorization-section .fi-input-wrp,
+    .safe-authorization-section .fi-fo-select-wrp {
+        min-height: 3rem;
+    }
+}
