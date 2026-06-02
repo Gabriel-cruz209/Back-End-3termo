@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TB2">
+  <rect width="64" height="64" rx="16" fill="#0f62f4"/>
+  <path d="M16 17h32" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M24 17v28" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <text x="38" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="800" fill="#fff">B2</text>
+</svg>
